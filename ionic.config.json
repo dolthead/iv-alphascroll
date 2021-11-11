@@ -1,0 +1,7 @@
+{
+  "name": "iv-alphascroll",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
