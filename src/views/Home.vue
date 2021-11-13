@@ -6,7 +6,7 @@
       </ion-toolbar>
     </ion-header>
     
-    <ion-content :fullscreen="true">
+    <ion-content :scrollY="!scrolling">
       <ion-header collapse="condense">
         <ion-toolbar>
           <ion-title size="large">{{ pageTitle }}</ion-title>
@@ -33,7 +33,7 @@
         </ion-item>
       </ion-item-group>
 
-      <alphabet-scroll @letter-selected="goToLetter"></alphabet-scroll>
+      <alphabet-scroll @letter-selected="goToLetter" @scrolling-letter="setScrolling"></alphabet-scroll>
     </ion-content>
 
   </ion-page>
@@ -41,7 +41,7 @@
 
 <script lang="ts">
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon, IonInput, IonItemGroup, IonItem, IonItemDivider, IonLabel } from '@ionic/vue';
-import { defineComponent, ref, onBeforeUpdate } from 'vue';
+import { defineComponent } from 'vue';
 import data from '../data.json';
 import { search } from 'ionicons/icons';
 import AlphabetScroll from '../components/alphabet-scroll.vue';
@@ -65,6 +65,7 @@ export default defineComponent({
   setup() {
     const pageTitle = 'Ionic Vue Alpha Scroll';
     const groupedData: any[] = [];
+    let scrolling = false;
 
     const sorted = data.sort((a,b) => {
       if (a.last_name + a.first_name < b.last_name + b.first_name) { return -1; }
@@ -89,11 +90,15 @@ export default defineComponent({
       }
     };
 
+    const setScrolling = (ev: boolean) => { scrolling = ev; };
+
     return {
       pageTitle,
       search,
       groupedData,
       goToLetter,
+      scrolling,
+      setScrolling,
     }
   }
 

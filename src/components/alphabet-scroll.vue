@@ -1,13 +1,8 @@
 <template>
     <ul class="letter-sidebar" ref="bar">
-    <li v-for="letter of letters" 
-        :key="letter" 
-        tappable 
-        @click="goToLetter(letter)"
-        @dragenter="goToLetter(letter)"
-    >
-        <a>{{ letter }}</a>
-    </li>
+        <li v-for="letter of letters" :key="letter" tappable @click="goToLetter(letter)">
+            <a>{{ letter }}</a>
+        </li>
     </ul>
 </template>
 
@@ -18,7 +13,7 @@ import { Haptics, ImpactStyle } from "@capacitor/haptics";
 
 export default defineComponent({
   name: 'AlphabetScroll',
-  setup(props, { emit }) {
+  setup(_, { emit }) {
 
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
     const bar = ref();
@@ -37,17 +32,25 @@ export default defineComponent({
             direction: 'y',
             threshold: 0,
             gestureName: 'move',
+            onStart: () => {
+                emit('scrollingLetter', true);
+            },
             onMove: ev => {
+                // ev.event.stopPropagation();
+                // ev.event.preventDefault();
                 const closestElem: any = document.elementFromPoint(ev.currentX, ev.currentY);
                 if (closestElem && ['LI', 'A'].includes(closestElem.tagName)) {
                     const letter = closestElem.innerText;
                     if (letter) {
                         if (letter !== last) {
                             Haptics.impact({ style: ImpactStyle.Light });
+                            goToLetter(letter);
                         }
-                        goToLetter(letter);
                     }
                 }
+            },
+            onEnd: () => {
+                emit('scrollingLetter', false);
             },
         });
         moveGesture.enable();
