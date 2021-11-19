@@ -36,8 +36,6 @@ export default defineComponent({
                 emit('scrollingLetter', true);
             },
             onMove: ev => {
-                // ev.event.stopPropagation();
-                // ev.event.preventDefault();
                 const closestElem: any = document.elementFromPoint(ev.currentX, ev.currentY);
                 if (closestElem && ['LI', 'A'].includes(closestElem.tagName)) {
                     const letter = closestElem.innerText;

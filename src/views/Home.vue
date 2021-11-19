@@ -21,7 +21,7 @@
       </ion-header>
 
       <ion-item-group v-for="group of groupedData" :key="group.key">
-        <ion-item-divider sticky>
+        <ion-item-divider>
           <ion-label :data-group="group.key">
             {{ group.key }}
           </ion-label>
@@ -33,7 +33,7 @@
         </ion-item>
       </ion-item-group>
 
-      <alphabet-scroll @letter-selected="goToLetter" @scrolling-letter="setScrolling"></alphabet-scroll>
+      <alphabet-scroll @letter-selected="goToLetter" @scrolling-letter="setScrolling" @touchmove.prevent></alphabet-scroll>
     </ion-content>
 
   </ion-page>
@@ -83,10 +83,9 @@ export default defineComponent({
     });
 
     const goToLetter = (letter: string) => {
-      // document.querySelector(`[data-group="${ letter }"]`)?.scrollIntoView();
       const dataGroup = document.querySelector(`[data-group="${ letter }"]`);
       if (dataGroup) {
-        dataGroup.scrollIntoView();
+        dataGroup.scrollIntoView({ behavior: 'smooth' });
       }
     };
 
