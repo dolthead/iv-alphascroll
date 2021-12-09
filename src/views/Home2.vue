@@ -7,12 +7,8 @@
     </ion-header>
     
     <ion-content :scrollY="!scrolling">
-      <ion-toolbar>
-        <div class="search">
-          <ion-input placeholder="Search">
-            <ion-icon :icon="search"></ion-icon>
-          </ion-input>
-        </div>
+      <ion-toolbar class="search">
+        <ion-searchbar></ion-searchbar>
       </ion-toolbar>
 
       <ion-item-group v-for="group of groupedData" :key="group.key">
@@ -36,9 +32,8 @@
 
 <script lang="ts" setup>
 
-  import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon, IonInput, IonItemGroup, IonItem, IonItemDivider, IonLabel } from '@ionic/vue';
+  import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonItemGroup, IonItem, IonItemDivider, IonLabel } from '@ionic/vue';
   import data from '../data.json';
-  import { search } from 'ionicons/icons';
   import AlphabetScroll from '../components/alphabet-scroll.vue';
 
   const pageTitle = 'Ionic Vue setup script';
@@ -73,17 +68,6 @@
 
 <style lang="scss" scoped>
 .search {
-  display: flex;
-
-  ion-input {
-    margin: 10px;
-    --padding-start: 10px;
-    --background: #e7e6e8;
-    border-radius: 8px;;
-  }
-
-  ion-icon {
-    margin-left: 10px;
-  }
+  padding-top: 12px;
 }
 </style>

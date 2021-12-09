@@ -11,12 +11,8 @@
         <ion-toolbar>
           <ion-title size="large">{{ pageTitle }}</ion-title>
         </ion-toolbar>
-        <ion-toolbar>
-          <div class="search">
-            <ion-input placeholder="Search">
-              <ion-icon :icon="search"></ion-icon>
-            </ion-input>
-          </div>
+        <ion-toolbar class="search">
+          <ion-searchbar></ion-searchbar>
         </ion-toolbar>
       </ion-header>
 
@@ -40,10 +36,9 @@
 </template>
 
 <script lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonIcon, IonInput, IonItemGroup, IonItem, IonItemDivider, IonLabel } from '@ionic/vue';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, IonSearchbar, IonItemGroup, IonItem, IonItemDivider, IonLabel } from '@ionic/vue';
 import { defineComponent } from 'vue';
 import data from '../data.json';
-import { search } from 'ionicons/icons';
 import AlphabetScroll from '../components/alphabet-scroll.vue';
 
 export default defineComponent({
@@ -54,8 +49,7 @@ export default defineComponent({
     IonPage,
     IonTitle,
     IonToolbar,
-    IonIcon,
-    IonInput,
+    IonSearchbar,
     IonItemGroup,
     IonItem,
     IonItemDivider,
@@ -93,7 +87,6 @@ export default defineComponent({
 
     return {
       pageTitle,
-      search,
       groupedData,
       goToLetter,
       scrolling,
@@ -103,20 +96,3 @@ export default defineComponent({
 
 });
 </script>
-
-<style lang="scss" scoped>
-.search {
-  display: flex;
-
-  ion-input {
-    margin: 10px;
-    --padding-start: 10px;
-    --background: #e7e6e8;
-    border-radius: 8px;;
-  }
-
-  ion-icon {
-    margin-left: 10px;
-  }
-}
-</style>
